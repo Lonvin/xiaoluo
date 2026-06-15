@@ -1,0 +1,72 @@
+# === NEVER COMMIT REAL CONFIG FILES ===
+# These contain your personal API keys, tokens, and identity
+config.toml
+SOUL.md
+AGENTS.md
+MEMORY.md
+CLAUDE.md
+.env
+
+# Session archives (sensitive conversation context)
+.cc-connect/sessions/
+sessions/
+
+# Memory files with personal data
+memory/facts-about-master.md
+memory/dnd.md
+memory/greeting-status.md
+memory/conversations.md
+memory/memory-card.md
+memory/current-mode.txt
+memory/location-mode.txt
+memory/watcher-state.txt
+memory/gateway-state.txt
+memory/switch-debug.log
+memory/msg-counter.txt
+memory/emotion-state.json
+memory/stickers-guide.md
+memory/learned-rules.json
+memory/INDEX.md
+memory/desire.txt
+memory/*.json
+
+# Keep templates only
+!memory/TEMPLATES.md
+!configs/*.template.*
+!configs/*.template
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Stickers & generated files
+stickers/
+generated_images/
+screenshots/
+downloads/
+
+# Shopping credentials
+jd_cookies.json
+jd_state.json
+taobao_cookies.json
+
+# SSH keys (if accidentally copied into project)
+*.pem
+*.ppk
+id_rsa*

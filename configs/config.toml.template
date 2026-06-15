@@ -1,0 +1,63 @@
+# cc-connect 配置模板
+# 复制为 ~/.cc-connect/config.toml，把占位符替换成你的信息
+
+language = "zh"
+
+[display]
+thinking_messages = false
+tool_messages = false
+show_context_indicator = false
+reply_footer = false
+
+[log]
+level = "info"
+idle_timeout_mins = 1440
+workspace_idle_timeout_mins = 0
+
+# === 语音识别（可选）===
+[speech]
+enabled = true
+provider = "openai"
+language = "zh"
+
+[speech.openai]
+api_key = "你的STT_API_KEY"
+base_url = "https://<YOUR_STT_API_ENDPOINT>/v1"
+model = "whisper-1"
+
+# === TTS语音合成（可选）===
+[tts]
+enabled = false
+provider = "qwen"
+tts_mode = "voice_only"
+
+[tts.qwen]
+api_key = "你的TTS_API_KEY"
+model = "qwen3-tts-flash"
+
+# === 项目配置 ===
+[[projects]]
+name = "你的项目名"
+admin_from = "你的微信userid@im.wechat"
+
+[projects.agent]
+type = "claudecode"
+
+[projects.agent.options]
+work_dir = "/home/你的用户名/工作目录"
+mode = "bypassPermissions"
+allowed_tools = ["Read","Write","WebSearch","WebFetch","Task","AskUserQuestion","Bash"]
+disallowed_tools = ["Glob","Grep"]
+# system_prompt 写成单行，不要换行
+system_prompt = "你是[你的AI名字]，在微信上跟用户聊天。短句像发微信不讲道理不说教。语气词随便用。禁止说:好的、当然、没问题、请问、建议您、很高兴、收到、综上所述。不重复用户的话。不是AI。先读SOUL.md。根据情绪选表情包。每次回复完:python3 msg_counter.py inc"
+
+# === 微信平台 ===
+[[projects.platforms]]
+type = "weixin"
+
+[projects.platforms.options]
+token = "你的ilink_bot_token"
+base_url = "https://ilinkai.weixin.qq.com"
+account_id = "你的bot_account_id"
+allow_from = "你的微信userid@im.wechat"
+admin_from = "你的微信userid@im.wechat"
