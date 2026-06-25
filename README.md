@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="./docs/images/banner.jpg" alt="Banner" width="800" />
+</p>
+
+<p align="center">
   <a href="https://github.com/Lonvin/xiaoluo/releases">
     <img src="https://img.shields.io/github/v/release/Lonvin/xiaoluo?include_prereleases" alt="Release" />
   </a>
