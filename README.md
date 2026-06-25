@@ -11,8 +11,11 @@
   <a href="https://nodejs.org/">
     <img src="https://img.shields.io/badge/Node-20+-green?logo=node.js" alt="Node" />
   </a>
+</p>
 
 <p align="center">
+  <a href="./README.md">English</a> | <a href="./README.zh-CN.md">中文</a>
+</p>
 
 ---
 
