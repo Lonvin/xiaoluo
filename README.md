@@ -1,8 +1,4 @@
 <p align="center">
-  <img src="./docs/images/banner.svg" alt="Banner" width="800" />
-</p>
-
-<p align="center">
   <a href="https://github.com/Lonvin/xiaoluo/releases">
     <img src="https://img.shields.io/github/v/release/Lonvin/xiaoluo?include_prereleases" alt="Release" />
   </a>
@@ -15,11 +11,8 @@
   <a href="https://nodejs.org/">
     <img src="https://img.shields.io/badge/Node-20+-green?logo=node.js" alt="Node" />
   </a>
-</p>
 
 <p align="center">
-  <a href="./README.md">English</a> | <a href="./README.zh-CN.md">中文</a>
-</p>
 
 ---
 
@@ -27,13 +20,11 @@
 
 <p align="center">
   <b>A personal AI companion on WeChat — with memory, emotions, and proactive intelligence.</b>
-</p>
 
 <p align="center">
   Not another customer service bot. An AI that chats like a real person.<br />
   It remembers conversations, has moods that change, checks on you proactively,<br />
   and learns from your feedback over time.
-</p>
 
 > **Important**: Built on the official WeChat iLink Bot API. No reverse engineering, no unofficial protocols, no account ban risk. For personal learning and experimentation.
 
