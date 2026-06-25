@@ -1,41 +1,95 @@
 <div align="center">
 
-# 🤖 WeChat AI Chatbot
+# 🤖 AI Companion for WeChat
 
-A personal AI companion on WeChat — built for learning and experimentation.
+### Build your own AI companion on WeChat — with personality, memory, and emotions
 
+[![GitHub Stars](https://img.shields.io/github/stars/Lonvin/xiaoluo?style=flat-square&color=yellow)](https://github.com/Lonvin/xiaoluo/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![Node](https://img.shields.io/badge/Node-20+-green.svg)](https://nodejs.org)
+[![Memory](https://img.shields.io/badge/Memory-%3C50MB-brightgreen)]()
 
 </div>
 
 ---
 
-## Project Overview
+## What is this?
 
-This is a personal learning project for building an AI companion on WeChat. It uses the official WeChat iLink Bot API — no unofficial protocols, no account reverse-engineering.
+A lightweight framework for building your own AI companion on WeChat. Give it a personality, a memory, and emotions — it chats like a real person, not a customer service bot.
 
-The goal: an AI that chats like a real person — with personality, emotions, and memory. Not a customer service bot.
+Built on the official **WeChat iLink Bot API**. No unofficial protocols, no account reverse-engineering, no jailbreak risk.
 
-> **Important**: This project is for personal learning and experimentation only. All functionality complies with WeChat's Terms of Service and iLink API guidelines.
+> **This is a blank framework.** Run `python setup.py` → answer a few questions → your AI is born. Everything — name, species, gender, personality, speaking style — is up to you.
 
 ---
 
-## Features
+## ✨ Features
 
-- WeChat native messaging via cc-connect + iLink official API
-- Multi-model LLM support (DeepSeek / Claude / OpenAI / Qwen — choose one)
-- 4-tier persistent memory with auto-compression
-- VAD 3D emotion engine — mood changes with conversation
-- Sticker/emoji system — emotion-driven
-- Voice messages + image generation
-- Proactive intelligence (event tracking, mood trends)
-- Shopping search (JD Union affiliate API)
-- Security guardrails (injection detection)
-- Self-learning from user corrections
-- Scheduled tasks (daily greetings, memory consolidation)
-- Cloud + local dual-mode (optional MQTT routing)
+- **WeChat native** — cc-connect + iLink official API
+- **Multi-model LLM** — DeepSeek / Claude / OpenAI / Qwen — you pick one
+- **Customizable personality** — `setup.py` interactive wizard or edit `SOUL.md` directly
+- **ChromaDB vector memory** — remembers conversations, auto-consolidates nightly
+- **Emotion engine** — mood changes with conversation, drives reply style
+- **Message pipeline** — enrichment, context injection, post-processing filter
+- **Self-learning** — detects user corrections, learns from feedback
+- **Cloud + local dual-mode** — MQTT-based routing, switch with one command
+- **Security guardrails** — injection detection, API key audit
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- Ubuntu 22.04 (2 vCPU / 1.6GB RAM) or Windows 10+
+- An LLM API key — [DeepSeek](https://platform.deepseek.com) (cheapest) or Claude / OpenAI / Qwen
+- WeChat iLink Bot account — [ilinkai.weixin.qq.com](https://ilinkai.weixin.qq.com) (enterprise verification)
+
+### 3 Steps
+
+```bash
+# 1. Clone
+git clone https://github.com/Lonvin/xiaoluo.git
+cd xiaoluo
+
+# 2. Install
+apt install -y nodejs python3 python3-pip
+npm install -g cc-connect pm2
+
+# 3. Initialize your AI
+python3 setup.py
+```
+
+Follow the interactive wizard — name your AI, pick a species, choose a personality, define speaking style. Then:
+
+```bash
+# Configure WeChat bridge
+cp configs/config.toml.template ~/.cc-connect/config.toml
+# Edit: fill in iLink token, your WeChat ID, API key
+
+# Start
+pm2 start cc-connect -- --config ~/.cc-connect/config.toml
+pm2 save && pm2 startup
+```
+
+Send a message to your bot — it replies. You're done.
+
+---
+
+## Project Structure
+
+```
+├── setup.py                      # Interactive initialization wizard
+├── configs/
+│   ├── SOUL.template.md          # Blank personality template
+│   └── config.toml.template      # cc-connect config template
+├── scripts/cloud/                # Multi-model LLM / TTS / image gen / security / memory
+├── scripts/local/                # Windows local mode
+├── guides/                       # Anti-AI voice, API options, quirks, MQTT
+├── lessons/                      # Common fixes, token optimization
+└── .gitignore                    # Memory files, configs, keys excluded
+```
 
 ---
 
@@ -44,112 +98,11 @@ The goal: an AI that chats like a real person — with personality, emotions, an
 | Layer | Technology |
 |-------|-----------|
 | WeChat Bridge | [cc-connect](https://github.com/chenhg5/cc-connect) v1.3+ |
-| AI Agent | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (or any OpenAI-compatible CLI agent) |
-| LLM | DeepSeek V4 / Claude Sonnet / GPT-4o / Qwen — you pick |
-| Memory | 4-tier file-based (SOUL → core → working → session) |
-| Process Manager | PM2 (cloud) / startup batch (local) |
-| Message Queue | Mosquitto MQTT (optional, for cloud/local routing) |
-| Python | 3.10+ (auxiliary scripts) |
-
----
-
-## Quick Start
-
-### 1. Prerequisites
-
-- A cloud server (Ubuntu 22.04, 2 vCPU / 1.6GB RAM) or Windows 10+ PC
-- DeepSeek API Key (or Claude/OpenAI/Qwen) — [platform.deepseek.com](https://platform.deepseek.com)
-- WeChat iLink Bot account — [ilinkai.weixin.qq.com](https://ilinkai.weixin.qq.com) (requires enterprise verification)
-
-### 2. Install
-
-```bash
-# Clone
-git clone https://github.com/cybercaller/ai-companion.git
-cd {project_name}
-
-# Install system dependencies (cloud)
-apt install -y nodejs python3 python3-pip
-npm install -g cc-connect pm2 @anthropic-ai/claude-code
-```
-
-### 3. Configure
-
-```bash
-# Copy and edit config template
-cp configs/config.toml.template ~/.cc-connect/config.toml
-# Edit: fill in your iLink bot token, WeChat ID, API keys
-
-# Create your AI's soul
-cp configs/SOUL.template.md SOUL.md
-# Edit: fill in your AI's name, identity, personality
-```
-
-### 4. Run
-
-```bash
-# Start cc-connect (cloud)
-pm2 start cc-connect --name my-ai -- --config ~/.cc-connect/config.toml
-pm2 save && pm2 startup
-
-# Or start locally (Windows)
-cc-connect --config %USERPROFILE%\.cc-connect\config.toml
-```
-
-### 5. Test
-
-Send a WeChat message to your bot. It should reply.
-
----
-
-## Security Checklist
-
-**Do this before anything else:**
-
-1. **Never commit real configs** — `.gitignore` already excludes `config.toml`, `SOUL.md`, `memory/*.md`. Verify: `git status` shows no untracked personal files.
-2. **Rotate API keys regularly** — DeepSeek, SiliconFlow, JD Union keys should be changed every 3-6 months.
-3. **Use environment variables** — See `.env.example` for the preferred way to store credentials.
-4. **WeChat bot token** — If your token leaks, reset it immediately at ilinkai.weixin.qq.com. Anyone with your token can impersonate your bot.
-5. **Server SSH** — Disable password login, use key-only auth. Change default SSH port.
-6. **Cloud security group** — Only open ports 22, 80, 443. Keep MQTT (1883) internal or use SSH tunnel.
-
----
-
-## Project Structure
-
-```
-├── README.md
-├── DEPLOY_CLOUD.md              # Cloud deployment guide
-├── DEPLOY_LOCAL.md              # Windows local deployment guide
-├── configs/
-│   ├── SOUL.template.md         # Personality template — CUSTOMIZE THIS
-│   └── config.toml.template     # cc-connect config template
-├── scripts/
-│   ├── cloud/                   # Cloud-side Python scripts
-│   │   ├── correction_learner.py
-│   │   ├── image_gen.py
-│   │   ├── voice_msg.py
-│   │   ├── memory_recall.py
-│   │   ├── knowledge_graph.py
-│   │   ├── proactive_intel.py
-│   │   ├── security_guard.py
-│   │   └── relay_server.py
-│   └── local/                   # Local-side scripts
-│       ├── deepseek_monitor.py
-│       └── start-chrome-for-debug.bat
-├── guides/
-│   ├── ANTI_AI_VOICE.md         # How to make AI sound human
-│   ├── API_OPTIONS.md           # All LLM/TTS/STT/image API options
-│   ├── QUIRKS.md                # Personality quirk design
-│   ├── SERVER_AND_DOMAIN.md     # Server & domain for beginners
-│   └── DOMAIN_AND_MQTT.md       # Advanced MQTT cloud/local routing
-├── lessons/
-│   ├── PROBLEMS_AND_FIXES.md    # Common issues
-│   └── TOKEN_OPTIMIZATION.md    # How to save on API costs
-├── memory/
-│   └── TEMPLATES.md             # Memory file templates
-└── .gitignore
-```
+| AI Agent | Claude Code / Codex / any OpenAI-compatible CLI agent |
+| LLM | DeepSeek V4 / Claude Sonnet / GPT-4o / Qwen |
+| Memory | ChromaDB vector database + file-based facts |
+| Process Manager | PM2 (cloud) / batch (Windows) |
+| Python | 3.10+ |
 
 ---
 
@@ -157,38 +110,34 @@ Send a WeChat message to your bot. It should reply.
 
 - [x] WeChat messaging (text + stickers + voice)
 - [x] Multi-model LLM support
-- [x] 4-tier memory system
-- [x] Emotion engine (VAD 3D)
-- [x] Scheduled tasks (greetings, memory consolidation)
+- [x] ChromaDB memory with auto-consolidation
+- [x] Customizable personality system
 - [x] Security guardrails
 - [x] Self-learning from corrections
-- [ ] Web dashboard for monitoring
+- [ ] Web dashboard
 - [ ] Multi-user support
 - [ ] Plugin system
 
 ---
 
-## Contributing
+## Security
 
-This is a personal learning project. Issues and PRs are welcome for discussion and learning. If you have ideas or find bugs, feel free to open an issue.
+1. **Never commit real configs** — `.gitignore` excludes `config.toml`, `SOUL.md`, `memory/*.md`
+2. **Rotate API keys** every 3-6 months
+3. **Use environment variables** for credentials
+4. **Reset leaked iLink tokens** immediately at ilinkai.weixin.qq.com
+5. **SSH key-only auth** — disable password login
 
 ---
 
 ## License
 
-MIT — use it, modify it, share it. Attribution appreciated but not required.
-
----
-
-## Contact
-
-- GitHub: [@cybercaller](https://github.com/cybercaller)
-- Issues: [github.com/cybercaller/ai-companion/issues](https://github.com/cybercaller/ai-companion/issues)
+MIT — use it, modify it, share it.
 
 ---
 
 <div align="center">
 
-⭐ **If this project helped you, a Star would mean a lot!** ⭐
+⭐ **Star this repo if it helped you build something!** ⭐
 
 </div>
