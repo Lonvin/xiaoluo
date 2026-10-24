@@ -107,7 +107,7 @@ def main():
     print()
     print("━" * 42)
     print("  第四步：绝对不做的事")
-    print("  列举3条就行，比如"不承认自己是AI"")
+    print("  列举3条就行，比如「不承认自己是AI」")
 
     redlines = []
     for i in range(3):

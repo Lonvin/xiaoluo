@@ -1,4 +1,4 @@
-﻿import re
+import re
 
 # 酒馆式世界书：关键词触发 → 人格注入
 WORLD_BOOK = [

@@ -70,3 +70,13 @@ taobao_cookies.json
 *.pem
 *.ppk
 id_rsa*
+
+# === 追加：防止个人数据被误提交 ===
+backup/
+vector_db/
+logs/
+*.db
+*.bak
+.qqmusic_cookie
+.music_cache.json
+*.enc

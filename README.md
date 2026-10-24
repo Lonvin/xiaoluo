@@ -20,7 +20,7 @@
 | TTS 语音 | ✅ cc-connect 自带 qwen3-tts，不依赖本项目代码 |
 | 安全防护 | ✅ security_guard.py 可用 |
 | 自学习 | ✅ correction_learner.py 可用 |
-| 一键部署 | ❌ setup.py 有语法错误，init 向导跑不起来 |
+| 一键部署 | ✅ init_wizard.py 交互式向导（已修复语法错误） |
 | 图片识别 | ❌ vision.py 缺失 |
 | 图片生成 | ❌ image_gen.py 缺失 |
 | 语音生成 | ❌ voice_msg.py 有 bug（变量未定义） |

@@ -1,7 +1,7 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 your AI双向中继服务器
-- POST /relay/to-{project_name}  — 我 → your AI（写入收件箱）
+- POST /relay/to-xiaoluo  — 我 → your AI（写入收件箱）
 - GET  /relay/to-local     — your AI → 我（读取发件箱）
 - POST /relay/to-local     — your AI → 我（写入发件箱）
 - GET  /relay/ping         — 健康检查
@@ -14,16 +14,16 @@ import urllib.parse
 from datetime import datetime
 from pathlib import Path
 
-RELAY_DIR = Path.home() / "{project_name}" / "relay"
-INBOX = RELAY_DIR / "to-{project_name}.md"
+RELAY_DIR = Path.home() / "xiaoluo" / "relay"
+INBOX = RELAY_DIR / "to-xiaoluo.md"
 OUTBOX = RELAY_DIR / "to-local.md"
 LOG = RELAY_DIR / "relay.log"
 
-def notify_{project_name}(msg):
+def notify_xiaoluo(msg):
     """通过cc-connect给user发微信，唤醒your AI"""
     try:
         result = subprocess.run(
-            ["cc-connect", "send", "--project", "{project_name}", "--stdin"],
+            ["cc-connect", "send", "--project", "xiaoluo", "--stdin"],
             input=msg.encode(),
             capture_output=True,
             timeout=10
@@ -52,7 +52,7 @@ class RelayHandler(http.server.BaseHTTPRequestHandler):
                 self.send_json({"status": "ok", "content": text})
             else:
                 self.send_json({"status": "ok", "content": ""})
-        elif parsed.path == "/relay/to-{project_name}":
+        elif parsed.path == "/relay/to-xiaoluo":
             if INBOX.exists():
                 text = INBOX.read_text(encoding="utf-8")
                 self.send_json({"status": "ok", "content": text})
@@ -66,12 +66,12 @@ class RelayHandler(http.server.BaseHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", 0))
         body = self.rfile.read(length).decode() if length > 0 else ""
 
-        if parsed.path == "/relay/to-{project_name}":
+        if parsed.path == "/relay/to-xiaoluo":
             # 我 → your AI
             INBOX.write_text(body + "\n", encoding="utf-8")
             log(f"我→your AI: {body[:100]}")
-            notify_{project_name}(f"📩 Claude大哥给你留言了，去 relay/to-{project_name}.md 看！")
-            self.send_json({"status": "ok", "to": "{project_name}"})
+            notify_xiaoluo(f"📩 Claude大哥给你留言了，去 relay/to-xiaoluo.md 看！")
+            self.send_json({"status": "ok", "to": "xiaoluo"})
 
         elif parsed.path == "/relay/to-local":
             # your AI → 我
@@ -86,12 +86,12 @@ class RelayHandler(http.server.BaseHTTPRequestHandler):
             log(f"your AI→我(追加): {body[:100]}")
             self.send_json({"status": "ok"})
 
-        elif parsed.path == "/relay/append-to-{project_name}":
+        elif parsed.path == "/relay/append-to-xiaoluo":
             # 我追加消息 → your AI
             current = INBOX.read_text(encoding="utf-8") if INBOX.exists() else ""
             INBOX.write_text(current + body + "\n", encoding="utf-8")
             log(f"我→your AI(追加): {body[:100]}")
-            notify_{project_name}(f"📩 Claude大哥追加了留言，去 relay/to-{project_name}.md 看！")
+            notify_xiaoluo(f"📩 Claude大哥追加了留言，去 relay/to-xiaoluo.md 看！")
             self.send_json({"status": "ok"})
 
         elif parsed.path == "/relay/clear-inbox":

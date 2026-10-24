@@ -126,7 +126,7 @@ pip3 install -r requirements.txt
 ### 3. 初始化你的 AI
 
 ```bash
-python3 setup.py
+python3 init_wizard.py
 ```
 
 交互式向导 — 名字、物种、性别、性格、说话风格。或直接编辑 `configs/SOUL.template.md`。

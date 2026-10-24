@@ -61,5 +61,5 @@
 
 ---
 
-> 💡 这是 SOUL.md 模板。运行 `python3 setup.py` 可交互式生成。
+> 💡 这是 SOUL.md 模板。运行 `python3 init_wizard.py` 可交互式生成。
 > 修改后放在项目根目录 `SOUL.md`，AI 启动时自动读取。

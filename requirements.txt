@@ -1,0 +1,8 @@
+# 核心依赖（Python 3.10+，版本下限取自实际运行环境）
+chromadb>=1.5.0,<2.0.0
+paho-mqtt>=2.0.0,<3.0.0
+dashscope>=1.14.0
+
+# 可选：按部署方式选择性安装
+# playwright>=1.40      # 浏览器自动化（DEPLOY_LOCAL）
+# wx4py                  # Windows 微信客户端桥接（仅本地 Windows）
